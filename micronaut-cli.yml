@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: bbl.micronaut
+---
+testFramework: spek
+sourceLanguage: kotlin

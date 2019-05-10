@@ -1,0 +1,5 @@
+micronaut:
+  application:
+    name: bbl-micronaut
+  server:
+    port: 8282
