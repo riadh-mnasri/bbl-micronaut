@@ -1,26 +1,44 @@
 package bbl.micronaut
 
-import io.micronaut.http.HttpRequest
-import io.micronaut.http.client.RxHttpClient
-import io.micronaut.http.client.annotation.Client
+import io.micronaut.context.ApplicationContext
+import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.test.annotation.MicronautTest
-import org.assertj.core.api.Assertions
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
+
 
 @MicronautTest
 class HelloControllerTest {
-    @Inject
-    @Client("/")
-    internal var client: RxHttpClient? = null // <2>
+
+    /* @Inject
+    lateinit var helloClient: HelloClient
 
     @Test
-    @Throws(Exception::class)
-    fun testHello() {
-        val request = HttpRequest.GET<Any>("/hello") // <3>
-        val body = client!!.toBlocking().retrieve(request)
+    fun testGreetingService() {
+        Assertions.assertThat(helloClient.hello("Enedis").blockingGet()).isEqualTo("Hello Enedis")
+    }*/
 
-        Assertions.assertThat(body).isNotEmpty()
-        Assertions.assertThat(body).isEqualTo("Hello Enedis!")
+    lateinit var server: EmbeddedServer
+    lateinit var helloClient: HelloClient
+
+    @BeforeEach
+    fun setup() {
+
+        server = ApplicationContext.run(EmbeddedServer::class.java)
+
+        helloClient = server
+                .applicationContext
+                .getBean(HelloClient::class.java)
+    }
+
+    @AfterEach
+    fun teardown() {
+        server.close()
+    }
+
+    @Test
+    fun testHelloWorldResponse() {
+        org.junit.jupiter.api.Assertions.assertEquals("Hello World", helloClient.hello("World").blockingGet())
     }
 }
