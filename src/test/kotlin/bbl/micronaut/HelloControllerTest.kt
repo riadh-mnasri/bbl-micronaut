@@ -11,14 +11,6 @@ import org.junit.jupiter.api.Test
 @MicronautTest
 class HelloControllerTest {
 
-    /* @Inject
-    lateinit var helloClient: HelloClient
-
-    @Test
-    fun testGreetingService() {
-        Assertions.assertThat(helloClient.hello("Enedis").blockingGet()).isEqualTo("Hello Enedis")
-    }*/
-
     lateinit var server: EmbeddedServer
     lateinit var helloClient: HelloClient
 
