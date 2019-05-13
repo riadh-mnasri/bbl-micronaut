@@ -14,7 +14,7 @@ class HelloControllerV2Test {
 
     @Test
     fun testGreetingService() {
-        Assertions.assertThat(helloClient.hello("Enedis").blockingGet()).isEqualTo("Hello Enedis")
+        Assertions.assertThat(helloClient.hello("World").blockingGet()).isEqualTo("Hello World")
     }
 
 }
